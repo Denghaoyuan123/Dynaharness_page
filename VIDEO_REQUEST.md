@@ -1,5 +1,12 @@
 # Video request: LIBERO-Pro rollouts for the episode scrubber
 
+**Delivered 2026-09-30.** All eight files are in `assets/video/sim/` with a
+`MANIFEST.csv`. The DynaHarness clips were re-rendered from the event stores
+(keyframes pixel-identical to the paper's); the frozen-policy clips are fresh
+rollouts of the same seeds, so their frames match the paper's only at step 0,
+and the page's frozen keyframes were re-cut from them. The specification below
+is kept for reference.
+
 The "Scrub through recorded episodes" section of the project page currently shows
 six keyframes per arm. It is wired to play a recorded video of each arm instead
 as soon as the files below exist; nothing else on the page needs to change.

@@ -210,11 +210,11 @@
       const frames = h('div', 'frames'); body.appendChild(frames);
       const big = h('div', 'big');
       const fa = h('figure', 'dh'); const ia = h('img'); ia.alt = 'DynaHarness frame'; fa.appendChild(ia); fa.appendChild(h('figcaption', null, 'DynaHarness')); big.appendChild(fa);
-      const fb = h('figure', 'fz'); const ib = h('img'); ib.alt = 'Frozen policy frame'; fb.appendChild(ib); fb.appendChild(h('figcaption', null, 'frozen π0.5, same seed')); big.appendChild(fb);
+      const fb = h('figure', 'fz'); const ib = h('img'); ib.alt = 'Frozen policy frame'; fb.appendChild(ib); fb.appendChild(h('figcaption', null, 'frozen π0.5 · new rollout, same seed')); big.appendChild(fb);
       frames.appendChild(big);
       // recorded rollouts, when the files exist: one frame per environment step, so time = step / fps
-      const V = []; const fps = (c.video && c.video.fps) || 20;
-      if (c.video) [[fa, c.video.ours], [fb, c.video.frozen]].forEach(([fig, src]) => { const v = document.createElement('video'); v.src = src; v.muted = true; v.playsInline = true; v.preload = 'metadata'; v.loop = false; v.addEventListener('loadedmetadata', () => { fig.classList.add('has-video'); if (V.every(x => x.readyState >= 1)) sl.classList.add('has-video'); }); fig.insertBefore(v, fig.firstChild); V.push(v); });
+      const V = []; const fps = (c.video && c.video.fps) || 20; let sweep = null;
+      if (c.video) [[fa, c.video.ours], [fb, c.video.frozen]].forEach(([fig, src]) => { const v = document.createElement('video'); v.src = src; v.muted = true; v.playsInline = true; v.preload = 'metadata'; v.loop = false; v.addEventListener('loadedmetadata', () => { fig.classList.add('has-video'); if (V.every(x => x.readyState >= 1)) { sl.classList.add('has-video'); if (sweep) { clearInterval(sweep); sweep = null; playB.click(); } } }); fig.insertBefore(v, fig.firstChild); V.push(v); });
       const vidReady = () => V.length === 2 && V.every(v => v.readyState >= 1);
       const mkStrip = (prefix, who, cls, fail) => {
         const row = h('div', 'frame-row'); row.appendChild(h('div', 'who ' + cls, who)); const strip = h('div', 'strip ' + (cls === 'dh' ? '' : 'frozen'));
@@ -246,7 +246,7 @@
       }
       slider.addEventListener('input', () => update(true)); update(false);
       // autoplay once when scrolled into view: the recorded videos if they loaded, else a sweep over the keyframes
-      let played = false; const auto = new IntersectionObserver(es => { es.forEach(x => { if (x.isIntersecting && !played) { played = true; if (vidReady()) { playB.click(); return; } let v = 0; const iv = setInterval(() => { v += Math.max(2, c.budget / 150); if (v >= c.steps) { v = c.steps; clearInterval(iv); } slider.value = v; update(false); }, 40); } }); }, { threshold: 0.3 }); auto.observe(box);
+      let played = false; const auto = new IntersectionObserver(es => { es.forEach(x => { if (x.isIntersecting && !played) { played = true; if (vidReady()) { playB.click(); return; } let v = 0; sweep = setInterval(() => { v += Math.max(2, c.budget / 150); if (v >= c.steps) { v = c.steps; clearInterval(sweep); sweep = null; } slider.value = v; update(false); }, 40); } }); }, { threshold: 0.3 }); auto.observe(box);
     }
     render();
   })();

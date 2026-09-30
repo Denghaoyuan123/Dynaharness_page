@@ -38,7 +38,7 @@ assets/img/fig/            paper figures rendered from the PDFs at 220 dpi
 assets/img/cases/          case-study frames from paper/figures/cases
 assets/img/baselines/      frames from the baselines' records (ENPIRE single-frame rollouts, PhyAgentOS final frames)
 assets/video/              web-encoded videos (H.264, faststart, no audio): real-robot trials, the rendered evidence scroll
-assets/video/sim/          LIBERO-Pro rollouts for the episode scrubber (not delivered yet; see VIDEO_REQUEST.md)
+assets/video/sim/          LIBERO-Pro clips for the episode scrubber, one frame per env step at 20 fps, with MANIFEST.csv
 assets/video/baselines/    the baselines' own rollouts, re-encoded (Zetta pairs, Harness VLA, ENPIRE, CaP-Agent0, PhyAgentOS)
 assets/DynaHarness_paper.pdf
 ```
@@ -65,10 +65,15 @@ placement (external + wrist, run circle_20260924T022938Z), cup stacking
 (cup_20260928T212411), bread into the toaster (bread_ui_20260929T161045Z) and
 the drawer refusal clip; their captions quote the runs' own decision traces.
 The episode scrubber plays `assets/video/sim/<case>_dh.mp4` and
-`<case>_pi05.mp4` when they exist (one frame per environment step, 20 fps) and
-shows the keyframes otherwise; `VIDEO_REQUEST.md` specifies them. Baseline
-videos are referenced from `assets/js/baselines.js` by path, with their markers
-in video seconds.
+`<case>_pi05.mp4` (one frame per environment step, 20 fps; the slider maps step
+k to k/20 s) and falls back to the keyframes if a clip is missing. The
+DynaHarness clips were re-rendered from the episodes' event stores and match
+the paper's keyframes pixel for pixel; the frozen-policy clips are fresh
+rollouts of the same seeds (pi0.5 sampling is not seeded), and the frozen
+keyframes under `assets/img/cases/dh_*_frozen_f*.jpg` were re-cut from them
+(the paper's originals stay in `paper/figures/cases`). Provenance per file is
+in `assets/video/sim/MANIFEST.csv`. Baseline videos are referenced from
+`assets/js/baselines.js` by path, with their markers in video seconds.
 
 ## Evidence-store explorer
 

@@ -234,8 +234,11 @@ window.DH = (function () {
   ];
 
   /* Filmed DynaHarness episodes for the scrubber (T7 and the case-study appendix).
-     video: agentview rollouts of both arms, one frame per environment step at 20 fps
-     (see VIDEO_REQUEST.md); until the files exist the scrubber shows the keyframes. */
+     video: agentview clips, one frame per environment step at 20 fps (assets/video/sim,
+     MANIFEST.csv there). The DynaHarness clips are re-rendered from the episodes' event
+     stores and match the paper's keyframes; the frozen-policy clips are fresh rollouts of
+     the same seeds recorded for the page (pi0.5 sampling is not seeded), and the frozen
+     keyframes were re-cut from them at the same steps. */
   const CASES = [
     {
       id: 'gs5', video: { ours: 'assets/video/sim/gs5_dh.mp4', frozen: 'assets/video/sim/gs5_pi05.mp4', fps: 20 }, cell: 'goal_swap[5]', seed: 22, instr: 'push the plate to the front of the stove', budget: 300, steps: 246, decisions: 34,
