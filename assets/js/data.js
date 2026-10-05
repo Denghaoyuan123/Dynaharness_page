@@ -363,11 +363,11 @@ window.DH = (function () {
     { k: 'Attributable', c: 'slate', t: 'An append-only evidence store logs every observation, decision, outcome and reason, including refusals for which no action was dispatched.' },
   ];
 
-  const BIBTEX = `@misc{deng2027dynaharness,
-  title     = {DynaHarness: A Dynamic Physical Harness for Self-Evolving Robot Agents},
-  author    = {Deng, Haoyuan and Liu, Jiebin and Zhang, Tengxiao and Yan, Langning and Cao, Hongye and Wang, Ziwei},
-  year      = {2027},
-  url       = {https://github.com/Denghaoyuan123/DynaHarness}
+  const BIBTEX = `@article{deng2026dynaharness,
+  title={DynaHarness: A Dynamic Physical Harness for Self-Evolving Robot Agents},
+  author={Deng, Haoyuan and Liu, Jiebin and Zhang, Tengxiao and Yan, Langning and Cao, Hongye and Wang, Ziwei},
+  journal={arXiv preprint arXiv:2609.40306},
+  year={2026}
 }`;
 
   return { CELLS, MAIN, SCALE, SCALE_SLOTS, TRANSFER, POST, ABL, MECH, ROUNDS, REJECTED, DRAWER, REGISTRY, TOOLS, PERTASK, LIBERO, PLUS, LAT, RATES, BUDGET, AFTER_PROGRESS, STEPSHARE, STOVE, REAL, CASES, BASELINES, PARADIGMS, CONTRACT, BIBTEX };
